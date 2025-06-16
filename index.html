@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ココログ（心log） - あなたの健康を見守るパートナー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #4A9B8E;
+            --primary-mint: #B8D4CE;
+            --primary-orange: #FF6B35;
+            --primary-yellow: #FFD93D;
+            --primary-green: #6BCF7F;
+            --primary-purple: #6B5B95;
+            --primary-blue: #4A90E2;
+            --dark-bg: #0A0A0A;
+            --dark-secondary: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-mint);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '📝';
+            font-size: 1.5rem;
+            filter: hue-rotate(120deg);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-left: 0.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(74, 155, 142, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .app-icon-large {
+            width: 120px;
+            height: 120px;
+            background: var(--primary-mint);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 40px rgba(74, 155, 142, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .app-icon-large::before {
+            content: '📝';
+            font-size: 4rem;
+            filter: hue-rotate(120deg);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint), var(--primary-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        .hero-title-sub {
+            font-size: 1.5rem;
+            color: var(--primary-teal);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint));
+            color: var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 155, 142, 0.5);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: var(--dark-bg);
+        }
+
+        /* デバイスモックアップ */
+        .device-showcase {
+            margin-top: 5rem;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .device-frame {
+            width: 300px;
+            height: 600px;
+            background: #222;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .preview-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease infinite;
+        }
+
+        .preview-icon::before {
+            content: '📝';
+            font-size: 3rem;
+            filter: hue-rotate(120deg);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* 機能セクション */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: var(--dark-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(74, 155, 142, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 2rem;
+        }
+
+        .icon-bp { background: rgba(255, 0, 0, 0.2); color: #FF4444; }
+        .icon-pulse { background: rgba(0, 255, 0, 0.2); color: #44FF44; }
+        .icon-weight { background: rgba(255, 165, 0, 0.2); color: #FFA500; }
+        .icon-symptom { background: rgba(138, 43, 226, 0.2); color: #8A2BE2; }
+        .icon-chart { background: rgba(74, 144, 226, 0.2); color: #4A90E2; }
+        .icon-health { background: rgba(107, 207, 127, 0.2); color: #6BCF7F; }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 症状追跡セクション */
+        .symptom-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(74, 155, 142, 0.05), transparent);
+        }
+
+        .symptom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .symptom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .symptom-item {
+            background: var(--dark-secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .symptom-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-teal);
+        }
+
+        .symptom-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* フッター */
+        footer {
+            padding: 3rem 2rem 2rem;
+            background: var(--dark-secondary);
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* プライバシーポリシーモーダル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: var(--dark-secondary);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 1px solid var(--primary-teal);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close {
+            color: var(--text-secondary);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--primary-teal);
+        }
+
+        .privacy-content h3 {
+            color: var(--primary-teal);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .privacy-content p,
+        .privacy-content ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-content ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .device-frame {
+                width: 250px;
+                height: 500px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* パーティクル背景 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-float 20s infinite linear;
+        }
+
+        @keyframes particle-float {
+            from {
+                transform: translateY(100vh) translateX(0);
+            }
+            to {
+                transform: translateY(-100px) translateX(100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- パーティクル背景 -->
+    <div class="particles"></div>
+
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div>
+                    <div class="logo-text">ココログ</div>
+                    <div class="logo-subtitle">心log</div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">機能</a></li>
+                <li><a href="#symptoms">症状追跡</a></li>
+                <li><a href="#download">ダウンロード</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="app-icon-large"></div>
+            <h1>ココログ</h1>
+            <p class="hero-title-sub">心log - あなたの健康を記録する</p>
+            <p class="hero-subtitle">血圧・脈拍・体重・症状を簡単記録。健康管理をもっとスマートに。</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">App Storeでダウンロード</a>
+                <a href="#features" class="btn btn-secondary">詳しく見る</a>
+            </div>
+
+            <div class="device-showcase">
+                <div class="device-frame">
+                    <div class="device-screen">
+                        <div class="app-preview">
+                            <div class="preview-icon"></div>
+                            <p style="font-size: 1.2rem; font-weight: bold;">ココログ</p>
+                            <p style="color: var(--text-secondary); margin-top: 1rem;">シンプルで使いやすい<br>健康管理アプリ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 機能セクション -->
+    <section class="features" id="features">
+        <h2>主な機能</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon icon-bp">❤️</div>
+                <h3>血圧記録</h3>
+                <p>収縮期・拡張期血圧を簡単に記録。範囲選択ボタンで素早く入力できます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-pulse">📈</div>
+                <h3>脈拍測定</h3>
+                <p>日々の脈拍数を記録し、健康状態の変化を把握しましょう。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-weight">⚖️</div>
+                <h3>体重管理</h3>
+                <p>体重の推移をグラフで確認。目標達成をサポートします。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-symptom">🩺</div>
+                <h3>症状追跡</h3>
+                <p>6つの主要な症状を簡単にトラッキング。健康状態を包括的に把握。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-chart">📊</div>
+                <h3>統計・グラフ</h3>
+                <p>記録したデータを美しいグラフで可視化。健康トレンドを一目で確認。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-health">🍀</div>
+                <h3>ヘルスケア連携</h3>
+                <p>Apple HealthKitと連携し、データを一元管理できます。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 症状追跡セクション -->
+    <section class="symptom-section" id="symptoms">
+        <div class="symptom-content">
+            <h2 style="font-size: 3rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--primary-teal), var(--primary-mint)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">症状を簡単に記録</h2>
+            <p style="color: var(--text-secondary); font-size: 1.2rem;">タップするだけで、日々の症状を記録。健康状態の変化を見逃しません。</p>
+            
+            <div class="symptom-grid">
+                <div class="symptom-item">
+                    <div class="symptom-icon">🏃</div>
+                    <p>運動</p>
+                </div>
+                <div class="symptom-item">
+                    <div class="symptom-icon">🫁</div>
+                    <p>息切れ</p>
+                </div>
+                <div class="symptom-item">
+                    <div class="symptom-icon">💧</div>
+                    <p>むくみ</p>
+                </div>
+                <div class="symptom-item">
+                    <div class="symptom-icon">🔋</div>
+                    <p>疲れやすさ</p>
+                </div>
+                <div class="symptom-item">
+                    <div class="symptom-icon">🍽️</div>
+                    <p>食欲低下</p>
+                </div>
+                <div class="symptom-item">
+                    <div class="symptom-icon">🌙</div>
+                    <p>不眠</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ダウンロードセクション -->
+    <section class="download-section" id="download" style="padding: 5rem 2rem; text-align: center;">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">今すぐ始めよう</h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem;">
+            無料でダウンロードして、健康管理をスタート
+        </p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">App Storeでダウンロード</a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" onclick="openPrivacyModal(); return false;">プライバシーポリシー</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Metamorph. All rights reserved.</p>
+                <p>ココログ（心log）</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- プライバシーポリシーモーダル -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: var(--primary-teal);">プライバシーポリシー</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="privacy-content">
+                <p>最終更新日: 2025年6月13日</p>
+                
+                <h3>1. はじめに</h3>
+                <p>ココログ（心log）（以下、「本アプリ」）は、お客様のプライバシーを尊重し、個人情報の保護に努めています。本プライバシーポリシーは、本アプリがどのような情報を収集し、どのように使用・管理するかについて説明します。</p>
+                
+                <h3>2. 収集する情報</h3>
+                <p>本アプリは以下の情報を収集します：</p>
+                <ul>
+                    <li>健康データ（血圧、脈拍、体重）</li>
+                    <li>症状記録（運動、息切れ、むくみ、疲れやすさ、食欲低下、不眠）</li>
+                    <li>記録日時</li>
+                    <li>デバイス情報（iOS バージョン、デバイスモデル）</li>
+                </ul>
+                
+                <h3>3. 情報の使用目的</h3>
+                <p>収集した情報は以下の目的で使用されます：</p>
+                <ul>
+                    <li>健康データの記録・管理</li>
+                    <li>グラフや統計の作成</li>
+                    <li>Apple HealthKitとの連携（ユーザーの許可がある場合）</li>
+                    <li>アプリの機能改善</li>
+                </ul>
+                
+                <h3>4. 情報の保管</h3>
+                <p>健康データはお客様のデバイス内にローカルに保存されます。クラウドへのバックアップはiCloudを通じて行われる場合がありますが、これはAppleのプライバシーポリシーに準拠します。</p>
+                
+                <h3>5. 第三者への提供</h3>
+                <p>本アプリは、お客様の個人情報を第三者に販売、貸与、または共有することはありません。ただし、以下の場合を除きます：</p>
+                <ul>
+                    <li>お客様の同意がある場合</li>
+                    <li>法令により開示が必要な場合</li>
+                </ul>
+                
+                <h3>6. 広告について</h3>
+                <p>本アプリはGoogle AdMobを使用して広告を表示します。AdMobは独自のプライバシーポリシーに基づいて情報を収集する場合があります。詳細は<a href="https://policies.google.com/privacy" target="_blank" style="color: var(--primary-teal);">Googleのプライバシーポリシー</a>をご確認ください。</p>
+                
+                <h3>7. データのセキュリティ</h3>
+                <p>本アプリは、お客様の情報を保護するために適切な技術的・組織的対策を講じています。</p>
+                
+                <h3>8. お客様の権利</h3>
+                <p>お客様は以下の権利を有します：</p>
+                <ul>
+                    <li>記録したデータの確認・編集・削除</li>
+                    <li>HealthKit連携の許可・拒否</li>
+                    <li>広告のパーソナライズの拒否</li>
+                </ul>
+                
+                <h3>9. 子供のプライバシー</h3>
+                <p>本アプリは13歳未満の子供から意図的に個人情報を収集しません。</p>
+                
+                <h3>10. 変更について</h3>
+                <p>本プライバシーポリシーは必要に応じて更新される場合があります。重要な変更がある場合は、アプリ内でお知らせします。</p>
+                
+                <h3>11. お問い合わせ</h3>
+                <p>プライバシーに関するご質問やご懸念がある場合は、以下までご連絡ください：</p>
+                <p>開発者: Metamorph</p>
+                <p>Email: keisuke9n@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // パーティクル生成
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            // ランダムな色
+            const colors = ['#4A9B8E', '#B8D4CE', '#6BCF7F', '#6B5B95', '#4A90E2'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.querySelector('.particles').appendChild(particle);
+            
+            // アニメーション終了後に削除
+            setTimeout(() => particle.remove(), 20000);
+        }
+
+        // 定期的にパーティクルを生成
+        setInterval(createParticle, 300);
+
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 要素を監視
+        document.querySelectorAll('.feature-card, .symptom-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ヘッダーのスクロール効果
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // プライバシーポリシーモーダル
+        const modal = document.getElementById('privacyModal');
+        const closeBtn = document.querySelector('.close');
+
+        function openPrivacyModal() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+    </body>
+    </html>
+    
