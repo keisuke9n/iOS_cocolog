@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- ✅ SEO基本設定 -->
+    <meta name="description" content="ココログ（心log）は血圧・脈拍・体重・症状をワンタップで記録できる無料のiOS健康管理アプリです。Apple HealthKit連携でデータを一元管理し、グラフでトレンドを確認しましょう。">
+    <meta name="keywords" content="健康管理アプリ, 血圧記録, 脈拍記録, 体重管理, 症状トラッカー, iOS, iPhone, Apple HealthKit, ココログ, 心log">
+    <!-- ドメインが決まり次第 canonical を設定 -->
+    <link rel="canonical" href="https://keisuke9n.github.io/iOS_cocolog/">
+
+    <!-- ✅ Open Graph / SNS -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://keisuke9n.github.io/iOS_cocolog//">
+    <meta property="og:title" content="ココログ（心log） | 血圧・脈拍・体重・症状をかんたん管理するiOS健康管理アプリ">
+    <meta property="og:description" content="血圧・脈拍・体重・症状をワンタップで記録できる無料のiOS健康管理アプリ『ココログ（心log）』。Apple HealthKit連携でデータを一元管理。">
+    <!-- OG画像は 1200×630 推奨 -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ココログ（心log） | 血圧・脈拍・体重・症状をかんたん管理するiOS健康管理アプリ">
+    <meta name="twitter:description" content="血圧・脈拍・体重・症状をワンタップで記録できる無料のiOS健康管理アプリ『ココログ（心log）』。Apple HealthKit連携でデータを一元管理。">
+
     <title>ココログ（心log） - あなたの健康を見守るパートナー</title>
     <style>
         * {
@@ -595,7 +612,7 @@
     <header>
         <nav>
             <div class="logo">
-                <div class="logo-icon"></div>
+                <div class="logo-icon" aria-label="アプリロゴ"></div>
                 <div>
                     <div class="logo-text">ココログ</div>
                     <div class="logo-subtitle">心log</div>
@@ -612,21 +629,22 @@
     <!-- ヒーローセクション -->
     <section class="hero">
         <div class="hero-content">
-            <div class="app-icon-large"></div>
+            <div class="app-icon-large" aria-label="ココログアプリアイコン"></div>
             <h1>ココログ</h1>
             <p class="hero-title-sub">心log - あなたの健康を記録する</p>
             <p class="hero-subtitle">血圧・脈拍・体重・症状を簡単記録。健康管理をもっとスマートに。</p>
             
+            <!-- ✅ DLリンクを公式URLに差し替え -->
             <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">App Storeでダウンロード</a>
+                <a href="https://apps.apple.com/jp/app//id6747163844" class="btn btn-primary" target="_blank" rel="noopener">App Storeでダウンロード</a>
                 <a href="#features" class="btn btn-secondary">詳しく見る</a>
             </div>
 
             <div class="device-showcase">
-                <div class="device-frame">
+                <div class="device-frame" aria-hidden="true">
                     <div class="device-screen">
                         <div class="app-preview">
-                            <div class="preview-icon"></div>
+                            <div class="preview-icon" aria-hidden="true"></div>
                             <p style="font-size: 1.2rem; font-weight: bold;">ココログ</p>
                             <p style="color: var(--text-secondary); margin-top: 1rem;">シンプルで使いやすい<br>健康管理アプリ</p>
                         </div>
@@ -641,32 +659,32 @@
         <h2>主な機能</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon icon-bp">❤️</div>
+                <div class="feature-icon icon-bp" aria-hidden="true">❤️</div>
                 <h3>血圧記録</h3>
                 <p>収縮期・拡張期血圧を簡単に記録。範囲選択ボタンで素早く入力できます。</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-pulse">📈</div>
+                <div class="feature-icon icon-pulse" aria-hidden="true">📈</div>
                 <h3>脈拍測定</h3>
                 <p>日々の脈拍数を記録し、健康状態の変化を把握しましょう。</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-weight">⚖️</div>
+                <div class="feature-icon icon-weight" aria-hidden="true">⚖️</div>
                 <h3>体重管理</h3>
                 <p>体重の推移をグラフで確認。目標達成をサポートします。</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-symptom">🩺</div>
+                <div class="feature-icon icon-symptom" aria-hidden="true">🩺</div>
                 <h3>症状追跡</h3>
                 <p>6つの主要な症状を簡単にトラッキング。健康状態を包括的に把握。</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-chart">📊</div>
+                <div class="feature-icon icon-chart" aria-hidden="true">📊</div>
                 <h3>統計・グラフ</h3>
                 <p>記録したデータを美しいグラフで可視化。健康トレンドを一目で確認。</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-health">🍀</div>
+                <div class="feature-icon icon-health" aria-hidden="true">🍀</div>
                 <h3>ヘルスケア連携</h3>
                 <p>Apple HealthKitと連携し、データを一元管理できます。</p>
             </div>
@@ -680,28 +698,28 @@
             <p style="color: var(--text-secondary); font-size: 1.2rem;">タップするだけで、日々の症状を記録。健康状態の変化を見逃しません。</p>
             
             <div class="symptom-grid">
-                <div class="symptom-item">
-                    <div class="symptom-icon">🏃</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">🏃</div>
                     <p>運動</p>
                 </div>
-                <div class="symptom-item">
-                    <div class="symptom-icon">🫁</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">🫁</div>
                     <p>息切れ</p>
                 </div>
-                <div class="symptom-item">
-                    <div class="symptom-icon">💧</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">💧</div>
                     <p>むくみ</p>
                 </div>
-                <div class="symptom-item">
-                    <div class="symptom-icon">🔋</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">🔋</div>
                     <p>疲れやすさ</p>
                 </div>
-                <div class="symptom-item">
-                    <div class="symptom-icon">🍽️</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">🍽️</div>
                     <p>食欲低下</p>
                 </div>
-                <div class="symptom-item">
-                    <div class="symptom-icon">🌙</div>
+                <div class="symptom-item" tabindex="0">
+                    <div class="symptom-icon" aria-hidden="true">🌙</div>
                     <p>不眠</p>
                 </div>
             </div>
@@ -715,7 +733,7 @@
             無料でダウンロードして、健康管理をスタート
         </p>
         <div class="cta-buttons">
-            <a href="#" class="btn btn-primary">App Storeでダウンロード</a>
+            <a href="https://apps.apple.com/jp/app//id6747163844" class="btn btn-primary" target="_blank" rel="noopener">App Storeでダウンロード</a>
         </div>
     </section>
 
